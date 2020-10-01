@@ -39,43 +39,57 @@ function preload ()
 
 function create ()
 {
+  // add background
   this.add.image(400, 300, 'sky');
 
+  // create container for platforms
   platforms = this.physics.add.staticGroup();
+
+  // add X platforms
   platforms.create(400, 550, 'ground');
 
+  // create player
   player = this.physics.add.sprite(100, 410, 'char');
 
+  // add bounce and collision detection for player
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
 
-  this.physics.add.collider(player, platforms);
+  // create controls
+  cursors = this.input.keyboard.createCursorKeys();
 
-
+  // create stars
   stars = this.physics.add.group({
     key: 'star',
     repeat: 11,
     setXY: { x: 12, y: 0, stepX: 70 }
   });
+
+  // add unique bounce to stars
   stars.children.iterate(function (child) {
-
     child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
   });
+
+  // create container for bombs
+  bombs = this.physics.add.group();
+
+  // collide with platforms
+  this.physics.add.collider(player, platforms);
   this.physics.add.collider(stars, platforms);
+  this.physics.add.collider(bombs, platforms);
+
+  // check if player touches a star
   this.physics.add.overlap(player, stars, collectStar, null, this);
 
-  bombs = this.physics.add.group();
-  this.physics.add.collider(bombs, platforms);
+  // check if player touches a bomb
   this.physics.add.collider(player, bombs, hitBomb, null, this);
 
+  // add score to screen
   scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 }
 
 function update ()
 {
-  cursors = this.input.keyboard.createCursorKeys();
-
   if (gameOver)
   {
     return;
@@ -114,15 +128,14 @@ function collectStar (player, star)
   // all stars are cleared
   if (stars.countActive(true) === 0)
   {
+    // add another round of stars
     stars.children.iterate(function (child) {
-
       child.enableBody(true, child.x, 0, true, true);
-
     });
 
     var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
-    // add bomb
+    // add a bomb
     var bomb = bombs.create(x, 16, 'bomb');
     bomb.setBounce(1);
     bomb.setCollideWorldBounds(true);
