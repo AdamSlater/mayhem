@@ -36,8 +36,14 @@ function create ()
   this.add.image(400, 300, 'sky');
 
   platforms = this.physics.add.staticGroup();
-
   platforms.create(400, 550, 'ground');
+
+  player = this.physics.add.sprite(100, 410, 'char');
+
+  player.setBounce(0.2);
+  player.setCollideWorldBounds(true);
+
+  this.physics.add.collider(player, platforms);
 }
 
 function update ()
