@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/macos,windows,phpstorm+all,webstorm,code,node
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,phpstorm+all,webstorm,code,node
+# Created by https://www.toptal.com/developers/gitignore/api/macos,windows,phpstorm+all,webstorm,code,node,sass
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,phpstorm+all,webstorm,code,node,sass
 
 ### Code ###
 .vscode/*
@@ -337,4 +337,11 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,windows,phpstorm+all,webstorm,code,node
+### Sass ###
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
+
+# End of https://www.toptal.com/developers/gitignore/api/macos,windows,phpstorm+all,webstorm,code,node,sass
