@@ -22,6 +22,7 @@ var config = {
     platforms,
     cursors,
     keys,
+    jumpCount = 0,
     score = 0,
     scoreText = '',
     gameOver = false;
@@ -59,7 +60,7 @@ function create ()
   // create controls
   cursors = this.input.keyboard.createCursorKeys();
   keys = this.input.keyboard.addKeys('W,S,A,D,SHIFT');
-console.log(keys);
+
   // create stars
   stars = this.physics.add.group({
     key: 'star',
@@ -114,19 +115,29 @@ function update ()
     // player.anims.play('turn');
   }
 
-  if ((cursors.up.isDown || keys.W.isDown) && player.body.touching.down)
+  const isJumpJustDown = Phaser.Input.Keyboard.JustDown(cursors.up);
+  const touchingGround = player.body.touching.down;
+
+  if ((isJumpJustDown) && (touchingGround || jumpCount < 2))
   {
     player.setVelocityY(-330);
+
+    jumpCount++;
   }
 
-  if ((cursors.down.isDown || keys.S.isDown)&& !player.body.touching.down)
+  if ((cursors.down.isDown || keys.S.isDown)&& !touchingGround)
   {
     player.setVelocityY(330);
   }
   
-  if (keys.SHIFT.isDown && !player.body.touching.down)
+  if (keys.SHIFT.isDown && !touchingGround)
   {
     player.setVelocityY(66);
+  }
+
+  if (touchingGround && !isJumpJustDown)
+  {
+    jumpCount = 0;
   }
 }
 
