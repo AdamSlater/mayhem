@@ -119,6 +119,11 @@ function update ()
     player.setVelocityY(-330);
   }
 
+  if ((cursors.down.isDown || keys.S.isDown)&& !player.body.touching.down)
+  {
+    player.setVelocityY(330);
+  }
+  
   if (keys.SHIFT.isDown && !player.body.touching.down)
   {
     player.setVelocityY(66);
