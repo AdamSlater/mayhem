@@ -21,6 +21,7 @@ var config = {
     bombs,
     platforms,
     cursors,
+    keys,
     score = 0,
     scoreText = '',
     gameOver = false;
@@ -57,7 +58,8 @@ function create ()
 
   // create controls
   cursors = this.input.keyboard.createCursorKeys();
-
+  keys = this.input.keyboard.addKeys('W,S,A,D,SHIFT');
+console.log(keys);
   // create stars
   stars = this.physics.add.group({
     key: 'star',
@@ -95,12 +97,12 @@ function update ()
     return;
   }
 
-  if (cursors.left.isDown)
+  if (cursors.left.isDown || keys.A.isDown)
   {
     player.setVelocityX(-160);
     // player.anims.play('left', true);
   }
-  else if (cursors.right.isDown)
+  else if (cursors.right.isDown || keys.D.isDown)
   {
     player.setVelocityX(160);
     // player.anims.play('right', true);
@@ -112,9 +114,19 @@ function update ()
     // player.anims.play('turn');
   }
 
-  if (cursors.up.isDown && player.body.touching.down)
+  if ((cursors.up.isDown || keys.W.isDown) && player.body.touching.down)
   {
     player.setVelocityY(-330);
+  }
+
+  if ((cursors.down.isDown || keys.S.isDown)&& !player.body.touching.down)
+  {
+    player.setVelocityY(330);
+  }
+  
+  if (keys.SHIFT.isDown && !player.body.touching.down)
+  {
+    player.setVelocityY(66);
   }
 }
 
