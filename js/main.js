@@ -58,8 +58,8 @@ function create ()
 
   // create controls
   cursors = this.input.keyboard.createCursorKeys();
-  keys = this.input.keyboard.addKeys('W,S,A,D');
-
+  keys = this.input.keyboard.addKeys('W,S,A,D,SHIFT');
+console.log(keys);
   // create stars
   stars = this.physics.add.group({
     key: 'star',
@@ -117,6 +117,11 @@ function update ()
   if ((cursors.up.isDown || keys.W.isDown) && player.body.touching.down)
   {
     player.setVelocityY(-330);
+  }
+
+  if (keys.SHIFT.isDown && !player.body.touching.down)
+  {
+    player.setVelocityY(66);
   }
 }
 
