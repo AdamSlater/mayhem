@@ -153,4 +153,9 @@ function hitBomb(player, bomb)
   // player.anims.play('turn');
 
   gameOver = true;
+
+  setTimeout(function(){
+    alert('Game Over!');
+    location.reload();
+  }, 3000);
 }
