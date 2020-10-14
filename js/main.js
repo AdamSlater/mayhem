@@ -41,6 +41,9 @@ function preload ()
 
 function create ()
 {
+  // set world bounds
+  this.physics.world.setBounds(0,0,1000,600);
+
   // add background
   this.add.image(400, 300, 'sky');
 
@@ -56,6 +59,9 @@ function create ()
   // add bounce and collision detection for player
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
+
+  // camera follow player
+  this.cameras.main.startFollow(player);
 
   // create controls
   cursors = this.input.keyboard.createCursorKeys();
@@ -129,7 +135,7 @@ function update ()
   {
     player.setVelocityY(330);
   }
-  
+
   if (keys.SHIFT.isDown && !touchingGround)
   {
     player.setVelocityY(66);
