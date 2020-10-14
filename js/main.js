@@ -41,6 +41,8 @@ function preload ()
 
 function create ()
 {
+    this.physics.world.setBounds(0,0,1000,600);
+
   // add background
   this.add.image(400, 300, 'sky');
 
@@ -129,7 +131,7 @@ function update ()
   {
     player.setVelocityY(330);
   }
-  
+
   if (keys.SHIFT.isDown && !touchingGround)
   {
     player.setVelocityY(66);
