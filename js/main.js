@@ -52,6 +52,7 @@ function create ()
 
   // add X platforms
   platforms.create(400, 550, 'ground');
+  platforms.create(1100, 400, 'ground');
 
   // create player
   player = this.physics.add.sprite(100, 410, 'char');
@@ -61,8 +62,7 @@ function create ()
   player.setCollideWorldBounds(true);
 
   // camera follow player
-  if (false)
-    this.cameras.main.startFollow(player);
+  this.cameras.main.startFollow(player);
 
   // create controls
   cursors = this.input.keyboard.createCursorKeys();
