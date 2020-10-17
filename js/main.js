@@ -66,7 +66,7 @@ function create ()
 
   // create controls
   cursors = this.input.keyboard.createCursorKeys();
-  keys = this.input.keyboard.addKeys('W,S,A,D,SHIFT');
+  keys = this.input.keyboard.addKeys('W,S,A,D,SHIFT,E');
 
   // create stars
   stars = this.physics.add.group({
@@ -120,6 +120,10 @@ function update ()
     player.setVelocityX(0);
 
     // player.anims.play('turn');
+  }
+
+  if ((player.body.touching.right || player.body.touching.left) && keys.E.isDown ){
+      player.setVelocityY(-400);
   }
 
   const isJumpJustDown = Phaser.Input.Keyboard.JustDown(cursors.up);
