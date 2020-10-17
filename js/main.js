@@ -52,6 +52,7 @@ function create ()
 
   // add X platforms
   platforms.create(400, 550, 'ground');
+  platforms.create(1100, 400, 'ground');
 
   // create player
   player = this.physics.add.sprite(100, 410, 'char');
@@ -65,7 +66,7 @@ function create ()
 
   // create controls
   cursors = this.input.keyboard.createCursorKeys();
-  keys = this.input.keyboard.addKeys('W,S,A,D,SHIFT');
+  keys = this.input.keyboard.addKeys('W,S,A,D,SHIFT,E');
 
   // create stars
   stars = this.physics.add.group({
@@ -83,7 +84,7 @@ function create ()
   bombs = this.physics.add.group();
 
   // collide with platforms
-  this.physics.add.collider(player, platforms);
+  this.physics.add.collider(player, platforms, slowFall, null, this);
   this.physics.add.collider(stars, platforms);
   this.physics.add.collider(bombs, platforms);
 
@@ -119,6 +120,10 @@ function update ()
     player.setVelocityX(0);
 
     // player.anims.play('turn');
+  }
+
+  if ((player.body.touching.right || player.body.touching.left) && keys.E.isDown ){
+      player.setVelocityY(-400);
   }
 
   const isJumpJustDown = Phaser.Input.Keyboard.JustDown(cursors.up);
@@ -187,4 +192,9 @@ function hitBomb(player, bomb)
     alert('Game Over!');
     location.reload();
   }, 3000);
+}
+
+function slowFall(player, ground)
+{
+    player.setVelocityY(25);
 }
