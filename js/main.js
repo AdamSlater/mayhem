@@ -61,7 +61,8 @@ function create ()
   player.setCollideWorldBounds(true);
 
   // camera follow player
-  this.cameras.main.startFollow(player);
+  if (false)
+    this.cameras.main.startFollow(player);
 
   // create controls
   cursors = this.input.keyboard.createCursorKeys();
