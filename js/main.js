@@ -84,7 +84,7 @@ function create ()
   bombs = this.physics.add.group();
 
   // collide with platforms
-  this.physics.add.collider(player, platforms);
+  this.physics.add.collider(player, platforms, slowFall, null, this);
   this.physics.add.collider(stars, platforms);
   this.physics.add.collider(bombs, platforms);
 
@@ -188,4 +188,9 @@ function hitBomb(player, bomb)
     alert('Game Over!');
     location.reload();
   }, 3000);
+}
+
+function slowFall(player, ground)
+{
+    player.setVelocityY(25);
 }
